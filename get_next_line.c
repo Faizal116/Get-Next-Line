@@ -85,16 +85,16 @@ char	*seperating_rest_of_file(char *str)
 char	*get_next_line(int fd)
 {
 	static char	*str;
-	char		*buff;
+	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
 	str = read_the_line(fd, str);
 	if (!str)
 		return (NULL);
-	buff = seperating_line(str);
+	line = seperating_line(str);
 	str = seperating_rest_of_file(str);
-	return (buff);
+	return (line);
 }
 
 #include <stdio.h>

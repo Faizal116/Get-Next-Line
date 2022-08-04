@@ -10,8 +10,8 @@
 
 char			*get_next_line(int fd);
 char			*read_the_line(int fd, char *str);
-char			*seperating_line(char *str);
-char			*seperating_rest_of_file(char *str);
+char			*separating_line(char *str);
+char			*separating_rest_of_file(char *str);
 char			*ft_strjoin(char *s1, char *s2);
 char			*ft_strchr(char *s, int c);
 size_t			ft_strlen(char *str);

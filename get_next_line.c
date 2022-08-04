@@ -24,7 +24,7 @@ char	*read_the_line(int fd, char *str)
 	return (str);
 }
 
-char	*seperating_line(char *str)
+char	*separating_line(char *str)
 {
 	char	*newstr;
 	int		i;
@@ -52,7 +52,7 @@ char	*seperating_line(char *str)
 	return (newstr);
 }
 
-char	*seperating_rest_of_file(char *str)
+char	*separating_rest_of_file(char *str)
 {
 	char	*rest;
 	int		i;
@@ -88,8 +88,8 @@ char	*get_next_line(int fd)
 	str = read_the_line(fd, str);
 	if (!str)
 		return (NULL);
-	line = seperating_line(str);
-	str = seperating_rest_of_file(str);
+	line = separating_line(str);
+	str = separating_rest_of_file(str);
 	return (line);
 }
 

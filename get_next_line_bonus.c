@@ -80,36 +80,48 @@ char	*seperating_rest_of_file(char *str)
 
 char	*get_next_line(int fd)
 {
-	static char	*str;
+	static char	*str[1024];
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd > 1024)
 		return (0);
-	str = read_the_line(fd, str);
-	if (!str)
+	str[fd] = read_the_line(fd, str[fd]);
+	if (!str[fd])
 		return (NULL);
-	line = seperating_line(str);
-	str = seperating_rest_of_file(str);
+	line = seperating_line(str[fd]);
+	str[fd] = seperating_rest_of_file(str[fd]);
 	return (line);
 }
 
-// #include <stdio.h>
-// #include <fcntl.h>
-// int	main(void)
-// {
-// 	char	*line;
-// 	int		i;
-// 	int		fd1;
-// 	fd1 = open("test.txt", O_RDONLY);
-
-// 	i = 1;
-// 	while (i < 7)
-// 	{
-// 		line = get_next_line(fd1);
-// 		printf("line [%02d]: %s", i, line);
-// 		free(line);
-// 		i++;
-// 	}
-// 	close(fd1);
-// 	return (0);
-// }
+#include <fcntl.h>
+#include <stdio.h>
+int	main(void)
+{
+	char	*line;
+	int		i;
+	int		fd1;
+	int		fd2;
+	int		fd3;
+	fd1 = open("test_files/test1.txt", O_RDONLY);
+	fd2 = open("test_files/test2.txt", O_RDONLY);
+	fd3 = open("test_files/test4.txt", O_RDONLY);
+	i = 1;
+	while (i < 7)
+	{
+		line = get_next_line(fd1);
+		printf("line [%02d]: %s", i, line);
+		free(line);
+		line = get_next_line(fd2);
+		printf("line [%02d]: %s", i, line);
+		free(line);
+		line = get_next_line(fd3);
+		printf("line [%02d]: %s", i, line);
+		free(line);
+		i++;
+	}
+	close(fd1);
+	close(fd2);
+	close(fd3);
+	//system("leaks get_next_line");
+	return (0);
+}
